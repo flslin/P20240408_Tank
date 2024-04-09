@@ -21,30 +21,74 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TankMove();
+
+        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * moveSpeed); // 3차원에서 돌음
+        //transform.Rotate(new Vector3(transform.position.x, transform.position.y, rotationSpeed * 50) * Time.deltaTime, Space.World); // 한방향으로 돌음
+        //Vector2 _dir = target.position - this.transform.position; // 돌았음
+        //this.transform.LookAt2DLerp(_dir);
+    }
+
+    private void TankMove()
+    {
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
         Vector2 dir = new Vector2(x, y);
         _base.velocity = dir * moveSpeed;
-
-        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * moveSpeed); // 3차원에서 돌음
-        //transform.Rotate(new Vector3(transform.position.x, transform.position.y, rotationSpeed * 50) * Time.deltaTime, Space.World); // 한방향으로 돌음
-        Vector2 _dir = target.position - this.transform.position; // 돌았음
-        this.transform.LookAt2DLerp(_dir);
+        Rotation();
     }
 
-}
-public static class LookAtExtension // 겁나 빨리 돌음
-{
-    public static void LookAt2DLerp(this Transform transform, Vector2 dir, float lerpPercent = 0.05f)
+    private void Rotation()
     {
-        float rotationZ = Mathf.Acos(dir.x / dir.magnitude)
-            * 180 / Mathf.PI
-            * Mathf.Sign(dir.y);
+        if (x > 0)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -90), rotationSpeed * Time.deltaTime);
+        
+        if (x < 0)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90), rotationSpeed * Time.deltaTime);
 
-        transform.rotation = Quaternion.Lerp(
-            transform.rotation,
-            Quaternion.Euler(0, 0, rotationZ),
-            lerpPercent
-        );
+        if (y > 0)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), rotationSpeed * Time.deltaTime);
+
+        if (y < 0)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 180), rotationSpeed * Time.deltaTime);
+
+        //LookAtSlowly(target);
+
+        //Vector3 eulerAngle = new Vector3 (x, y, 10);
+        //transform.Rotate(eulerAngle, Space.Self);
+        //transform.localRotation *= Quaternion.Euler(eulerAngle);
+
+        //if (Input.GetKey(KeyCode.W))
+        //    transform.rotation = Quaternion.Euler(Vector2.up);//앞으로
+        //else if (Input.GetKey(KeyCode.S))
+        //    transform.rotation = Quaternion.Euler(Vector2.down);//뒤로
+        //else if (Input.GetKey(KeyCode.A))
+        //    transform.rotation = Quaternion.Euler(Vector2.left);//왼쪽
+        //else if (Input.GetKey(KeyCode.D))
+        //    transform.rotation = Quaternion.Euler(Vector2.right);//오른쪽
+    }
+
+    private void LookAtSlowly(Transform target, float speed = 1f)
+    {
+        if (target == null) return;
+
+        Vector3 dir = target.position - transform.position;
+        var nextRot = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, nextRot, Time.deltaTime * speed);
     }
 }
+//public static class LookAtExtension // 겁나 빨리 돌음
+//{
+//    public static void LookAt2DLerp(this Transform transform, Vector2 dir, float lerpPercent = 0.05f)
+//    {
+//        float rotationZ = Mathf.Acos(dir.x / dir.magnitude)
+//            * 180 / Mathf.PI
+//            * Mathf.Sign(dir.y);
+
+//        transform.rotation = Quaternion.Lerp(
+//            transform.rotation,
+//            Quaternion.Euler(0, 0, rotationZ),
+//            lerpPercent
+//        );
+//    }
+//}
