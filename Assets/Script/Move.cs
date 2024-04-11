@@ -10,7 +10,6 @@ public class Move : MonoBehaviour
     public float rotationSpeed = 3.0f;
     float x;
     float y;
-    public Transform target;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +50,14 @@ public class Move : MonoBehaviour
 
         if (y < 0)
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 180), rotationSpeed * Time.deltaTime);
+
+
+        //캐릭터의 월드 좌표를 뷰포트 좌표계로 변환해준다.
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(transform.position);
+        viewPos.x = Mathf.Clamp01(viewPos.x); //x값을 0이상, 1이하로 제한한다.
+        viewPos.y = Mathf.Clamp01(viewPos.y); //y값을 0이상, 1이하로 제한한다.
+        Vector3 worldPos = Camera.main.ViewportToWorldPoint(viewPos);//다시월드좌표로 변환
+        transform.position = worldPos; //좌표를 적용한다.
 
         //LookAtSlowly(target);
 

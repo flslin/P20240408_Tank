@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TurretMove : MonoBehaviour
 {
+    public float rotateDegree;
+
     void Update()
     {
         PointLook();
@@ -21,7 +23,7 @@ public class TurretMove : MonoBehaviour
         float dy = target.y - oPosition.y;
         float dx = target.x - oPosition.x;
 
-        float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
+        rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree + -90);
     }
