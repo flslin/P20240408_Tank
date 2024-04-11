@@ -135,9 +135,10 @@ GameObject:
   - component: {fileID: 357714031}
   - component: {fileID: 357714030}
   - component: {fileID: 357714029}
+  - component: {fileID: 357714033}
   m_Layer: 0
   m_Name: Tank Green Base Idle_0
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,7 +200,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -275,13 +276,25 @@ Transform:
   m_GameObject: {fileID: 357714028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 694692737}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &357714033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357714028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f029932e5ec8e74e9021bd1823521b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &419358707
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,7 +442,6 @@ GameObject:
   m_Component:
   - component: {fileID: 694692737}
   - component: {fileID: 694692739}
-  - component: {fileID: 694692738}
   m_Layer: 0
   m_Name: Tank Green Turret Idle_0
   m_TagString: Untagged
@@ -452,19 +464,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 357714032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &694692738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694692736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b156c0f420eea0049af2154556df2f79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateDegree: 0
 --- !u!212 &694692739
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2738,7 +2737,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538273297}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

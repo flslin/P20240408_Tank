@@ -34,5 +34,13 @@ public class Bullet : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+        if (collision.tag == "Enemy")
+        {
+            GameObject go = Instantiate(boom, transform.position, Quaternion.identity);
+            Destroy(go, 0.5f);
+
+            Destroy(gameObject);
+        }
     }
 }
