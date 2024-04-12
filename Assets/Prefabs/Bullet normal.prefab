@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4220176574826389706}
   m_Layer: 0
   m_Name: Bullet normal
-  m_TagString: PlayerBullet
+  m_TagString: PBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   boom: {fileID: 1496246854580531167, guid: 95295abea129afc4c98cdc5735191d44, type: 3}
+  playerAttack: 10
 --- !u!58 &-215186941618406099
 CircleCollider2D:
   m_ObjectHideFlags: 0

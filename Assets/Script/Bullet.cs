@@ -7,7 +7,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed = 20f;
     Vector2 dir;
     [SerializeField] private GameObject boom;
-    
+
+    public int playerAttack = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,7 @@ public class Bullet : MonoBehaviour
             GameObject go = Instantiate(boom, transform.position, Quaternion.identity);
             Destroy(go, 0.5f);
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }

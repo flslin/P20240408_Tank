@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Move : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public Rigidbody2D _base;
-    public float moveSpeed = 3.0f;
-    public float rotationSpeed = 3.0f;
+    private float moveSpeed = 3.0f;
+    private float rotationSpeed = 3.0f;
     float x;
     float y;
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,14 +76,14 @@ public class Move : MonoBehaviour
         //    transform.rotation = Quaternion.Euler(Vector2.right);//오른쪽
     }
 
-    private void LookAtSlowly(Transform target, float speed = 1f)
-    {
-        if (target == null) return;
+    //private void LookAtSlowly(Transform target, float speed = 1f)
+    //{
+    //    if (target == null) return;
 
-        Vector3 dir = target.position - transform.position;
-        var nextRot = Quaternion.LookRotation(dir);
-        transform.rotation = Quaternion.Slerp(transform.rotation, nextRot, Time.deltaTime * speed);
-    }
+    //    Vector3 dir = target.position - transform.position;
+    //    var nextRot = Quaternion.LookRotation(dir);
+    //    transform.rotation = Quaternion.Slerp(transform.rotation, nextRot, Time.deltaTime * speed);
+    //}
 }
 //public static class LookAtExtension // 겁나 빨리 돌음
 //{
