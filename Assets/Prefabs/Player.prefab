@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 5147984002286888502}
   - component: {fileID: 1376224496385638205}
   m_Layer: 0
-  m_Name: Tank Blue Base Idle
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

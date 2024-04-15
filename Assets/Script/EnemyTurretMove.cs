@@ -4,30 +4,28 @@ using UnityEngine;
 
 public class EnemyTurretMove : MonoBehaviour
 {
+    [SerializeField] private int rotateSpeed;
     public GameObject player;
 
-    private float rotateDegree;
-    Vector3 pPosition;
+    [SerializeField] private Transform playerCheck;
+    [SerializeField] private float playerCheckDistance;
 
     void Update()
     {
-        pPosition = player.transform.position;
-        PointLook();
+        if(player != null)
+        {
+            Vector2 direction = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
+
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion angleAxis = Quaternion.AngleAxis(angle + 90f, Vector3.forward);
+            Quaternion rotation = Quaternion.Slerp(transform.rotation, angleAxis, rotateSpeed * Time.deltaTime);
+            transform.rotation = rotation;
+        }
+        //Vector3 vec = player.transform.position - transform.position;
+        //vec.Normalize();
+        //Quaternion q = Quaternion.LookRotation(vec);
+        //transform.rotation = q; // 3D
     }
 
-    public void PointLook()
-    {
-        Vector3 oPosition = transform.position; //게임 오브젝트 좌표 저장
-
-        pPosition.z = oPosition.z - Camera.main.transform.position.z;
-
-        Vector3 target = Camera.main.ScreenToWorldPoint(pPosition);
-
-        float dy = target.y - oPosition.y;
-        float dx = target.x - oPosition.x;
-
-        rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
-    }
+    public bool isPlayerDetected() => Physics2D.Raycast(playerCheck.position, Vector2.up, playerCheckDistance);
 }

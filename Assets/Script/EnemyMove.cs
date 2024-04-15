@@ -38,7 +38,7 @@ public class EnemyMove : MonoBehaviour
     void Update()
     {
         Col();
-        InvokeRepeating("EnemyRandomMove", 4f, 1f);
+        StartCoroutine("EnemyRandomMove");
         //StartCoroutine(RandomMove());
         //ApplyRandomForce();
     }
@@ -77,57 +77,70 @@ public class EnemyMove : MonoBehaviour
         rb.AddForce(randomDirection * randomForce, ForceMode2D.Impulse);
     }
 
-    IEnumerator RandomMove()
+    //IEnumerator RandomMove()
+    //{
+    //    while (isAlive)
+    //    {
+    //        float dir1 = Random.Range(-1f, 1f);
+    //        float dir2 = Random.Range(-1f, 1f);
+
+    //        transform.position = new Vector3(Mathf.Lerp(transform.position.x, transform.position.x + dir1, 0.1f), transform.position.y, transform.position.z);
+    //        //gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x + dir1, transform.position.y, transform.position.z), 0.3f);
+    //        //gameObject.transform.position = new Vector3(transform.position.x + dir1, transform.position.y, transform.position.z);
+    //        yield return new WaitForSeconds(1);
+    //        transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, transform.position.y + dir2, 0.1f), transform.position.z);
+    //        //gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + dir2, transform.position.z), 0.3f);
+    //        //gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + dir2, transform.position.z);
+    //    }
+    //}
+
+    IEnumerator EnemyRandomMove()
     {
+        //if (Mathf.Abs(rb.velocity.x) < 0.1f)
+        //{
+        //    rb.AddForce(new Vector2(speed * ranNum1, rb.velocity.y));
+        //    yield return new WaitForSeconds(1);
+        //}
+
+        //else if (Mathf.Abs(rb.velocity.x) > 1f)
+        //{
+        //    rb.AddForce(new Vector2(speed * -ranNum1, rb.velocity.y));
+        //    yield return new WaitForSeconds(1);
+        //}
+
+        //else if (Mathf.Abs(rb.velocity.y) < 0.1f)
+        //{
+        //    rb.AddForce(new Vector2(rb.velocity.x, speed * -ranNum1));
+        //    yield return new WaitForSeconds(1);
+        //}
+
+        //else
+        //{
+        //    rb.AddForce(new Vector2(rb.velocity.x, speed * ranNum1));
+        //    yield return new WaitForSeconds(1);
+        //}
         while (isAlive)
         {
-            float dir1 = Random.Range(-1f, 1f);
-            float dir2 = Random.Range(-1f, 1f);
-
-            transform.position = new Vector3(Mathf.Lerp(transform.position.x, transform.position.x + dir1, 0.1f), transform.position.y, transform.position.z);
-            //gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x + dir1, transform.position.y, transform.position.z), 0.3f);
-            //gameObject.transform.position = new Vector3(transform.position.x + dir1, transform.position.y, transform.position.z);
-            yield return new WaitForSeconds(1);
-            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, transform.position.y + dir2, 0.1f), transform.position.z);
-            //gameObject.transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + dir2, transform.position.z), 0.3f);
-            //gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + dir2, transform.position.z);
+            switch (ranNum1, ranNum2)
+            {
+                case (0, 0):
+                    transform.position = Vector2.up/*(transform.position.x, transform.position.x + ranNum1, 0.5f)*/;
+                    yield return new WaitForSeconds(1);
+                    break;
+                case (1, 0):
+                    transform.position = Vector2.down;
+                    yield return new WaitForSeconds(1);
+                    break;
+                case (0, 1):
+                    transform.position = Vector2.right;
+                    yield return new WaitForSeconds(1);
+                    break;
+                case (1, 1):
+                    transform.position = Vector2.left;
+                    yield return new WaitForSeconds(1);
+                    break;
+            }
         }
-    }
-
-    void EnemyRandomMove()
-    {
-        if (Mathf.Abs(rb.velocity.x) < 0.1f)
-        {
-            rb.AddForce(new Vector2(speed * ranNum1, rb.velocity.y));
-        }
-        else if (Mathf.Abs(rb.velocity.x) > 1f)
-        {
-            rb.AddForce(new Vector2(speed * -ranNum1, rb.velocity.y));
-        }
-        else if(Mathf.Abs(rb.velocity.y) < 0.1f)
-        {
-            rb.AddForce(new Vector2(rb.velocity.x, speed * -ranNum1));
-        }
-        else
-        {
-            rb.AddForce(new Vector2(rb.velocity.x, speed * ranNum1));
-        }
-
-        //switch (ranNum1, ranNum2)
-        //{
-        //    case (0, 0):
-        //        transform.position = (transform.position.x, transform.position.x + ranNum1, 0.5f);
-        //        break;
-        //    case (1, 0):
-        //        transform.position = Vector2.down;
-        //        break;
-        //    case (0, 1):
-        //        transform.position = Vector2.right;
-        //        break;
-        //    case (1, 1):
-        //        transform.position = Vector2.left;
-        //        break;
-        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

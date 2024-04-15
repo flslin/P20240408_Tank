@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 369707015824542472}
   - component: {fileID: 4439357986925812711}
   m_Layer: 0
-  m_Name: Tank Green Base Idle
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

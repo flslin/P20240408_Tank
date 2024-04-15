@@ -1,30 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-public class Shoot : MonoBehaviour
+public class EnemyShoot : MonoBehaviour
 {
-    public GameObject ShootingPoint;
+    EnemyTurretMove turretMove;
 
-    public GameObject bulletPrefab;
-    public Animator anim;
-    bool isFire;
+    [SerializeField] private bool isFire;
+    [SerializeField] private Animator anim;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject ShootingPoint;
+    void Start()
+    {
+        turretMove = GetComponent<EnemyTurretMove>();
+    }
 
     void Update()
     {
-        Shooting();
+        StartCoroutine(Shooting());
     }
 
-    public void Shooting()
+    IEnumerator Shooting()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (turretMove.isPlayerDetected())
         {
             isFire = true;
             anim.SetBool("isFire", isFire);
             Instantiate(bulletPrefab, new Vector3(ShootingPoint.transform.position.x, ShootingPoint.transform.position.y, ShootingPoint.transform.position.z), Quaternion.identity);
+            yield return new WaitForSeconds(1);
         }
-
     }
 
     public void ShootingOver()

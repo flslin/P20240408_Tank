@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TankMove();
+        Invoke("TankMove", 3f);
 
         //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * moveSpeed); // 3차원에서 돌음
         //transform.Rotate(new Vector3(transform.position.x, transform.position.y, rotationSpeed * 50) * Time.deltaTime, Space.World); // 한방향으로 돌음
