@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     float x;
     float y;
 
+    private float enemyAttack = 3f;
+    private float playerHP = 100f;
+    private bool isAlive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +24,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Invoke("TankMove", 3f);
+        if (isAlive)
+            Invoke("TankMove", 3f);
 
         //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * moveSpeed); // 3차원에서 돌음
         //transform.Rotate(new Vector3(transform.position.x, transform.position.y, rotationSpeed * 50) * Time.deltaTime, Space.World); // 한방향으로 돌음
@@ -36,6 +40,41 @@ public class Player : MonoBehaviour
         Vector2 dir = new Vector2(x, y);
         _base.velocity = dir * moveSpeed;
         Rotation();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "EBullet")
+        {
+            StartCoroutine(ChangeColor());
+            Damage();
+
+            Destroy(collision.gameObject);
+        }
+    }
+
+    void Damage()
+    {
+        playerHP -= enemyAttack;
+
+        if (playerHP <= 0)
+        {
+            isAlive = false;
+            gameObject.SetActive(false);
+        }
+        Debug.Log($"playerHP : {playerHP}");
+    }
+
+    IEnumerator ChangeColor()
+    {
+        SpriteRenderer body = GetComponent<SpriteRenderer>();
+        SpriteRenderer turret = GetComponentInChildren<SpriteRenderer>();
+        body.color = Color.gray;
+        turret.color = Color.gray;
+        yield return new WaitForSeconds(0.3f);
+        body.color = Color.white;
+        turret.color = Color.white;
+
     }
 
     private void Rotation()

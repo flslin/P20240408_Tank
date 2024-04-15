@@ -8,14 +8,15 @@ TagManager:
   - Wall
   - Enemy
   - PBullet
+  - EBullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 

@@ -1,25 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-public class Bullet : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 20f;
+    [SerializeField] private float speed = 10f;
     [SerializeField] private GameObject boom;
-    Vector2 dir;
-
     public int playerAttack = 10;
 
-    // Start is called before the first frame update
+    Vector2 dir;
+    Vector2 dirNo;
+    GameObject player;
     void Start()
     {
-        dir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        dir = player.transform.position - transform.position;
+        dirNo = dir.normalized;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(dir.normalized * speed * Time.deltaTime);
+        
+        transform.Translate(dirNo * speed * Time.deltaTime);
     }
 
     private void OnBecameInvisible()
@@ -37,7 +42,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Player")
         {
             GameObject go = Instantiate(boom, transform.position, Quaternion.identity);
             Destroy(go, 0.5f);

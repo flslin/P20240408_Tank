@@ -9,25 +9,27 @@ public class EnemyShoot : MonoBehaviour
     [SerializeField] private bool isFire;
     [SerializeField] private Animator anim;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObject ShootingPoint;
+
     void Start()
     {
         turretMove = GetComponent<EnemyTurretMove>();
+        Invoke("EnemyShooting", 3f);
     }
 
     void Update()
     {
-        StartCoroutine(Shooting());
+        
     }
 
-    IEnumerator Shooting()
+    void EnemyShooting()
     {
         if (turretMove.isPlayerDetected())
         {
             isFire = true;
             anim.SetBool("isFire", isFire);
-            Instantiate(bulletPrefab, new Vector3(ShootingPoint.transform.position.x, ShootingPoint.transform.position.y, ShootingPoint.transform.position.z), Quaternion.identity);
-            yield return new WaitForSeconds(1);
+            Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+            Invoke("EnemyShooting", 3f);
         }
     }
 

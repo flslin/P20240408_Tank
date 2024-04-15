@@ -13,14 +13,16 @@ public class EnemyMove : MonoBehaviour
     //private float y;
     //private float rotationSpeed = 5f;
 
-    private int enemyHP = 100;
-    private int playerAttack = 1;
     Bullet bullet;
-    private bool isAlive = true;
+    public GameObject boom1;
+
+    private int enemyHP = 100;
+    private int playerAttack = 30;
+    public bool isAlive = true;
 
     int ranNum1;
     int ranNum2;
-    private float speed = 3.0f;
+    //private float speed = 3.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +32,16 @@ public class EnemyMove : MonoBehaviour
         float rotationAmount = Random.Range(0, 1);
         transform.Rotate(0f, 0f, rotationAmount);
 
-        ranNum1 = Random.Range(0, 1);
-        ranNum2 = Random.Range(0, 1);
+        ranNum1 = Random.Range(0, 2);
+        ranNum2 = Random.Range(0, 2);
     }
 
     // Update is called once per frame
     void Update()
     {
         Col();
-        StartCoroutine("EnemyRandomMove");
+        //StartCoroutine("EnemyRandomMove");
+
         //StartCoroutine(RandomMove());
         //ApplyRandomForce();
     }
@@ -162,8 +165,10 @@ public class EnemyMove : MonoBehaviour
         {
             isAlive = false;
             gameObject.SetActive(false);
+            GameObject go = Instantiate(boom1, transform.position, Quaternion.identity);
+            Destroy(go, 0.5f);
         }
-        Debug.Log(enemyHP);
+        Debug.Log($"enemyHP : {enemyHP}");
     }
 
     IEnumerator ChangeColor()

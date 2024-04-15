@@ -7,8 +7,9 @@ public class EnemyTurretMove : MonoBehaviour
     [SerializeField] private int rotateSpeed;
     public GameObject player;
 
-    [SerializeField] private Transform playerCheck;
-    [SerializeField] private float playerCheckDistance;
+    [SerializeField] public Transform playerCheck;
+    [SerializeField] private LayerMask whatIsPlayer;
+    private float playerCheckDistance;
 
     void Update()
     {
@@ -27,5 +28,10 @@ public class EnemyTurretMove : MonoBehaviour
         //transform.rotation = q; // 3D
     }
 
-    public bool isPlayerDetected() => Physics2D.Raycast(playerCheck.position, Vector2.up, playerCheckDistance);
+    public bool isPlayerDetected() => Physics2D.Raycast(playerCheck.position, transform.position, playerCheckDistance);
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(playerCheck.position, player.transform.position);
+    }
 }
