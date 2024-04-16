@@ -16,7 +16,7 @@ public class EnemyMove : MonoBehaviour
     Bullet bullet;
     public GameObject boom1;
 
-    public int enemyHP = 100;
+    private int enemyHP = 100;
     private int playerAttack = 30;
     public bool isAlive = true;
 
@@ -40,6 +40,7 @@ public class EnemyMove : MonoBehaviour
     void Update()
     {
         Col();
+
         //StartCoroutine("EnemyRandomMove");
 
         //StartCoroutine(RandomMove());
@@ -159,7 +160,7 @@ public class EnemyMove : MonoBehaviour
 
     void Damage()
     {
-        enemyHP -= playerAttack;
+        ChangeHP();
 
         if (enemyHP <= 0)
         {
@@ -169,6 +170,12 @@ public class EnemyMove : MonoBehaviour
             Destroy(go, 0.5f);
         }
         Debug.Log($"enemyHP : {enemyHP}");
+    }
+
+    public int ChangeHP()
+    {
+        enemyHP -= playerAttack;
+        return enemyHP;
     }
 
     IEnumerator ChangeColor()

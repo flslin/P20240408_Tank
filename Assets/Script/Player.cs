@@ -11,10 +11,10 @@ public class Player : MonoBehaviour
     float x;
     float y;
 
-    public float playerHP = 100f;
-    private float enemyAttack = 3f;
+    private int playerHP = 100;
+    private int enemyAttack = 3;
     private bool isAlive = true;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
     {
         if (isAlive)
             Invoke("TankMove", 3f);
-
         //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * moveSpeed); // 3차원에서 돌음
         //transform.Rotate(new Vector3(transform.position.x, transform.position.y, rotationSpeed * 50) * Time.deltaTime, Space.World); // 한방향으로 돌음
         //Vector2 _dir = target.position - this.transform.position; // 돌았음
@@ -42,7 +41,7 @@ public class Player : MonoBehaviour
         Rotation();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "EBullet")
         {
@@ -55,7 +54,7 @@ public class Player : MonoBehaviour
 
     void Damage()
     {
-        playerHP -= enemyAttack;
+        ChangeHP();
 
         if (playerHP <= 0)
         {
@@ -63,6 +62,12 @@ public class Player : MonoBehaviour
             gameObject.SetActive(false);
         }
         Debug.Log($"playerHP : {playerHP}");
+    }
+
+    public int ChangeHP()
+    {
+        playerHP -= enemyAttack;
+        return playerHP;
     }
 
     IEnumerator ChangeColor()
