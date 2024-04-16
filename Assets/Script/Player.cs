@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     float x;
     float y;
 
+    public float playerHP = 100f;
     private float enemyAttack = 3f;
-    private float playerHP = 100f;
     private bool isAlive = true;
 
     // Start is called before the first frame update

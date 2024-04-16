@@ -16,7 +16,7 @@ public class EnemyMove : MonoBehaviour
     Bullet bullet;
     public GameObject boom1;
 
-    private int enemyHP = 100;
+    public int enemyHP = 100;
     private int playerAttack = 30;
     public bool isAlive = true;
 
